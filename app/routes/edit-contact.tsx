@@ -2,7 +2,7 @@ import { Form, redirect, useNavigate } from "react-router";
 import type { Route } from "./+types/edit-contact";
 import { getContact, updateContact } from "../data";
 
-export async function loader({ params }: Route.LoaderArgs) {
+export async function clientLoader({ params }: Route.ClientLoaderArgs) {
   const contact = await getContact(params.contactId);
   if (!contact) {
     throw new Response("Not Found", { status: 404 });
@@ -10,10 +10,10 @@ export async function loader({ params }: Route.LoaderArgs) {
   return { contact };
 }
 
-export async function action({
+export async function clientAction({
   params,
   request,
-}: Route.ActionArgs) {
+}: Route.ClientActionArgs) {
   const formData = await request.formData();
   const updates = Object.fromEntries(formData);
   await updateContact(params.contactId, updates);

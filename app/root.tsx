@@ -10,7 +10,7 @@ import type { Route } from "./+types/root";
 
 import appStylesHref from "./app.css?url";
 
-export async function action() {
+export async function clientAction() {
   const contact = await createEmptyContact();
   return redirect(`/contacts/${contact.id}/edit`);
 }

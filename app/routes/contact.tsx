@@ -4,7 +4,7 @@ import type { ContactRecord } from "../data";
 import { getContact, updateContact } from "../data";
 import type { Route } from "./+types/contact";
 
-export async function loader({ params }: Route.LoaderArgs) {
+export async function clientLoader({ params }: Route.ClientLoaderArgs) {
   const contact = await getContact(params.contactId);
   if (!contact) {
     throw new Response("Not Found", { status: 404 });
@@ -76,10 +76,10 @@ export default function Contact({
   );
 }
 
-export async function action({
+export async function clientAction({
   params,
   request,
-}: Route.ActionArgs) {
+}: Route.ClientActionArgs) {
   const formData = await request.formData();
   return updateContact(params.contactId, {
     favorite: formData.get("favorite") === "true",
